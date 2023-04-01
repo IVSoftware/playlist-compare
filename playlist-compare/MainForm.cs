@@ -20,13 +20,13 @@ namespace playlist_compare
 
             var tsmi = new ToolStripMenuItem();
 
-            dataGridViewMusic.DataSource = Songs;
+            dataGridViewMusic.DataSource = _allMusic;
             dataGridViewMusic.CellMouseDown += (sender, e) =>
             {
                 if (e.Button.Equals(MouseButtons.Right) && !e.RowIndex.Equals(-1))
                 {
                     var menu = new ContextMenuStrip();
-                    var song = Songs[e.RowIndex];
+                    var song = _allMusic[e.RowIndex];
                     dataGridViewMusic.ClearSelection();
                     dataGridViewMusic.Rows[e.RowIndex].Selected = true;
                     foreach (Playlist playlist in _allPlaylists)
@@ -40,33 +40,33 @@ namespace playlist_compare
             {
                 if (sender is PlaylistToolStripItem tsmiPlus)
                 {
-                    Debug.WriteLine($"Clicked Playlist: {tsmiPlus.Playlist.Name} Song: {tsmiPlus.Song}");
-                    if(tsmiPlus.Checked) tsmiPlus.Playlist.Remove(tsmiPlus.Song);
-                    else tsmiPlus.Playlist.Add(tsmiPlus.Song);
+                    Debug.WriteLine($"Clicked Playlist: {tsmiPlus.Playlist.Name} Song: {tsmiPlus.Music}");
+                    if(tsmiPlus.Checked) tsmiPlus.Playlist.Remove(tsmiPlus.Music);
+                    else tsmiPlus.Playlist.Add(tsmiPlus.Music);
                 }
             };
 
             #region F O R M A T    C O L U M N S
-            Songs.Add(new Music());
+            _allMusic.Add(new Music());
             dataGridViewMusic.Columns[nameof(Music.Name)].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewMusic.Columns[nameof(Music.Artist)].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             var c = dataGridViewMusic.Columns[nameof(Music.Volume)];
             c.HeaderText = string.Empty;
             c.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             c.Width = 60;
-            Songs.Clear();
+            _allMusic.Clear();
             #endregion F O R M A T    C O L U M N S
 
             // Add music to test
-            Songs.Add(new Music { Name = "Who's That Girl", Artist = "kiddo" });
-            Songs.Add(new Music { Name = "Mazerati", Artist = "LIZOT, Paradigm and Bella X" });
-            Songs.Add(new Music { Name = "Sorry to Me Too", Artist = "Julia Michaels" });
+            _allMusic.Add(new Music { Name = "Who's That Girl", Artist = "kiddo" });
+            _allMusic.Add(new Music { Name = "Mazerati", Artist = "LIZOT, Paradigm and Bella X" });
+            _allMusic.Add(new Music { Name = "Sorry to Me Too", Artist = "Julia Michaels" });
 
-            _allPlaylists.Add(new Playlist("Playlist 1") { Songs[0], Songs[1] });
-            _allPlaylists.Add(new Playlist("Playlist 2") { Songs[1], Songs[2] });
-            _allPlaylists.Add(new Playlist("Playlist 3") { Songs[0], Songs[2] });
+            _allPlaylists.Add(new Playlist("Playlist 1") { _allMusic[0], _allMusic[1] });
+            _allPlaylists.Add(new Playlist("Playlist 2") { _allMusic[1], _allMusic[2] });
+            _allPlaylists.Add(new Playlist("Playlist 3") { _allMusic[0], _allMusic[2] });
         }
-        BindingList<Music> Songs = new BindingList<Music>();
+        BindingList<Music> _allMusic = new BindingList<Music>();
         List<Playlist> _allPlaylists = new List<Playlist>();
     }
     class Music
@@ -83,16 +83,16 @@ namespace playlist_compare
     }
     class PlaylistToolStripItem : ToolStripMenuItem
     {
-        public PlaylistToolStripItem(Playlist playlist, Music song)
+        public PlaylistToolStripItem(Playlist playlist, Music music)
         {
             Playlist = playlist;
-            Song = song;
+            Music = music;
             Text = playlist.Name;
-            Checked = playlist.Contains(song);
+            Checked = playlist.Contains(music);
             base.Click += Click;            
         }
         public Playlist Playlist { get; }
-        public Music Song { get; }
+        public Music Music { get; }
         public static new event EventHandler Click;
     }
 }
