@@ -17,6 +17,9 @@ namespace playlist_compare
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
+            var tsmi = new ToolStripMenuItem();
+
             dataGridViewMusic.DataSource = Songs;
             dataGridViewMusic.CellMouseDown += (sender, e) =>
             {
@@ -86,7 +89,7 @@ namespace playlist_compare
             Song = song;
             Text = playlist.Name;
             Checked = playlist.Contains(song);
-            base.Click += Click;
+            base.Click += Click;            
         }
         public Playlist Playlist { get; }
         public Music Song { get; }
