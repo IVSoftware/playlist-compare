@@ -26,12 +26,12 @@ namespace playlist_compare
                 if (e.Button.Equals(MouseButtons.Right) && !e.RowIndex.Equals(-1))
                 {
                     var menu = new ContextMenuStrip();
-                    var song = _allMusic[e.RowIndex];
+                    var music = _allMusic[e.RowIndex];
                     dataGridViewMusic.ClearSelection();
                     dataGridViewMusic.Rows[e.RowIndex].Selected = true;
                     foreach (Playlist playlist in _allPlaylists)
                     {
-                        menu.Items.Add(new PlaylistToolStripItem(playlist, song));
+                        menu.Items.Add(new PlaylistToolStripItem(playlist, music));
                     }
                     menu.Show(new Point(MousePosition.X + 30, MousePosition.Y - 30));
                 }
