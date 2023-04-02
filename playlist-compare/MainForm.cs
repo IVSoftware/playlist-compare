@@ -17,9 +17,6 @@ namespace playlist_compare
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
-            var tsmi = new ToolStripMenuItem();
-
             dataGridViewMusic.DataSource = _allMusic;
             dataGridViewMusic.CellMouseDown += (sender, e) =>
             {
