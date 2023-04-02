@@ -40,7 +40,7 @@ namespace playlist_compare
             {
                 if (sender is PlaylistToolStripItem tsmiPlus)
                 {
-                    Debug.WriteLine($"Clicked Playlist: {tsmiPlus.Playlist.Name} Music: {tsmiPlus.Music}");
+                    Debug.WriteLine($"Clicked Playlist: {tsmiPlus.Playlist.Name} Music: {tsmiPlus.Music.Name}");
                     if(tsmiPlus.Checked) tsmiPlus.Playlist.Remove(tsmiPlus.Music);
                     else tsmiPlus.Playlist.Add(tsmiPlus.Music);
                 }
