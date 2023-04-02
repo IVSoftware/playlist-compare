@@ -55,7 +55,7 @@ namespace playlist_compare
             #endregion F O R M A T    C O L U M N S
 
             // Add music to test
-            _allMusic.Add(new Music { Name = "Who's That Girl", Artist = "kiddo" });
+            _allMusic.Add(new Music { Name = "Who's That Girl", Artist = "kiddo", Volume = 100 });
             _allMusic.Add(new Music { Name = "Mazerati", Artist = "LIZOT, Paradigm and Bella X" });
             _allMusic.Add(new Music { Name = "Sorry to Me Too", Artist = "Julia Michaels" });
 
